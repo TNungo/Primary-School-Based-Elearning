@@ -1,0 +1,119 @@
+{% load static %}
+
+ <!-- Most recomended Courses Section four start -->
+        <div class="ed_transprentbg ed_toppadder80 ed_bottompadder80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="ed_heading_top ed_bottompadder80">
+                            <h3>Learner recommended courses</h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="ed_mostrecomeded_course_slider ed_mostrecomededcourseslider">
+                            <div id="owl-demo3" class="owl-carousel owl-theme">
+                               
+                               {% if all_courses %}
+                               {% for all in all_courses  %}
+                                <div class="item">
+                                    <div class="ed_item_img">
+                                        <img src="{{all.thumbnail.url}}" alt="item1" class="img-responsive">
+                                    </div>
+                                    <div class="ed_item_description ed_most_recomended_data">
+                                        <h4><a href="{{all.get_absolute_url}}">{{all.title}}</a></h4>
+                                        <div class="row">
+                                    
+                                        </div>
+                                        <div class="course_detail">
+                                            <div class="course_faculty">
+                                                <img src="{% static 'assets/images/kidscamp/content/team_1.jpg'  %}" alt=""> <a href="javascript:void(0);">{{all.teacher_id.username}}</a>
+                                            </div>
+                                        </div>
+                                        <p>{{all.short_description}}</p>
+                                        {% if request.user.is_authenticated %}
+
+
+                                        {% if all_enrollmet %}
+                                        {% for mkli in all_enrollmet %}
+                                        {% if mkli.courses_id.id == all.id %}
+                                            {% if  mkli.enrolled %}
+                                                    <form method="POST" action="{% url 'homepage:get_uninvolved' %}">
+                                            
+                                                        {% csrf_token %}
+
+                                                        <input name="course_id" type="hidden" value="{{all.id}}" >
+                                                        
+                                                        <button type="submit" class="btn btn-danger">Remove Enrollment</button>
+                                                    </form>
+
+
+                                            {% else %}
+                                                    <form method="POST" action="{% url 'homepage:get_involved' %}">
+                                  
+                                                        {% csrf_token %}
+
+                                                        <input name="course_id" type="hidden" value="{{all.id}}" >
+                                                        
+                                                        <button type="submit" class="btn btn-success">Enroll Now</button>
+                                                    </form>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                                {% endif %}
+
+
+
+                                        {% else %}
+                                        <form method="POST" action="{% url 'homepage:get_involved' %}">
+                                    
+                                                    {% csrf_token %}
+
+                                                    <input name="course_id" type="hidden" value="{{all.id}}" >
+                                                    
+                                                    <button type="submit" class="btn btn-success">Enroll Now</button>
+                                                </form>
+
+
+
+                                        
+                                        
+                                        {% endif %}
+
+                                        {% endfor %}
+
+                                            {% else %}
+
+                                            
+
+                                                <form method="POST" action="{% url 'homepage:get_involved' %}">
+                                              
+                                                    {% csrf_token %}
+
+                                                    <input name="course_id" type="hidden" value="{{all.id}}" >
+                                                    
+                                                    <button type="submit" class="btn btn-success">Enroll Now</button>
+                                                </form>
+                                        
+                                        {% endif %}
+
+
+                                       
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                {% endfor %}
+
+                                {% endif %}
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!--Most recomended Courses Section four end -->
+       

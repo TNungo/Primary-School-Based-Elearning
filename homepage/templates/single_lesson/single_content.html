@@ -1,0 +1,106 @@
+{% load static %}
+
+ <!--Single content start-->
+        <div class="ed_graysection ed_toppadder80 ed_bottompadder80 with-left-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 col-md-8 col-sm-12 col-12">
+                        <div class="ed_course_single_item">
+                            <div class="ed_course_single_image">
+
+                                <div class="ed_video_section">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <div class="ed_video">
+                                             <iframe width="560" height="315" src="{{object.video_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                               
+                                            <div class="ed_img_overlay">
+                                                <a href="javascript:void(0);"><i class="fa fa-play-circle" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="ed_course_single_info">
+                                <h2 class="ed_toppadder20">Lesson : {{object.title}}</h2>
+
+                                <p style="color:black;">{{object.lesson_body}}</p>
+
+                             
+
+                            </div>
+                        </div>
+                        <div class="ed_time_executor ed_toppadder40">
+                            <ul>
+                                <li><a href="#">Other Lessons</a> <span>estimated time</span></li>
+                    
+                                <li><a href="#">{{object.title}}</a> <span>Currently active</span></li>
+                                {% if all_lessons %}
+                                {% for other in all_lessons %}
+                                {% if other.course.id == object.course.id %}
+                                <li><a href="{{other.get_absolute_url}}">{{other.title}}</a> <span>{{other.duration}} Minutes</span></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% endif %}
+                               
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Sidebar Start-->
+                    <div class="col-lg-3 col-md-4 col-sm-12 col-12">
+                        <div class="sidebar_wrapper_upper">
+                            <div class="sidebar_wrapper">
+
+                           
+                                <aside class="widget widget_categories">
+                                    <h4 class="widget-title">Lessons Files</h4>
+                                    <ul>
+                                    {% if lesson_files %}
+                                  
+                                    {% for lsf in lesson_files %}
+                                
+                                    {% if lsf.lesson.id == object.id %}
+                                    
+                                        <li><a href="{{lsf.zip_file_upload.url}}"><i class="fa fa-chevron-right"></i>{{lsf.file_name}}</a></li>
+                                 
+                                        {% endif %}
+                                        
+                                        {% endfor %}
+
+                                    
+
+                                    
+                                    {% endif %}
+                          
+                                    </ul>
+                                </aside>
+
+                                <aside class="widget widget_sharing">
+                                    <h4 class="widget-title">Lessions Assignment</h4>
+                                    <ul>
+                                    {% if assignemt_files %}
+                                    {% for ass in assignemt_files %}
+                                    {% if ass.lesson.id ==  object.id %}
+                                        <li><a href="{{ass.zip_file_upload.url}}"><i class="fa fa-facebook"></i>{{ass.file_name}}</a></li>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                       
+                                    </ul>
+                                </aside>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!--Sidebar End-->
+
+                </div>
+            </div>
+
+        </div>
+
+        <!--Single content end-->
